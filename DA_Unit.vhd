@@ -36,7 +36,7 @@ Architecture rtl of DA_Unit is
 	constant c_const0:integer:=integer(ceil(LOG2(real(g_ADCs+g_Filter_n_Decimation_modules))));
 	constant c_const1:integer:=integer(ceil(LOG2(real(2*g_Demodulator_modules+g_FreePorts))));
 	
-	component Demodulator2 is
+	component Demodulator is
 		generic
 			(g_bits:integer:=g_bits
 			);
@@ -144,7 +144,7 @@ begin
 			s_alpha(i)<=i_alpha((i+1)*g_bits-1 downto i*g_bits);
 			s_beta(i)<=i_beta((i+1)*g_bits-1 downto i*g_bits);
 			
-			DM:	Demodulator2	port map (s_MX0(i),i_Clk,s_alpha(i),s_beta(i),i_resetDemo(i),s_DemoSignalI(i),s_DemoSignalQ(i));
+			DM:	Demodulator	port map (s_MX0(i),i_Clk,s_alpha(i),s_beta(i),i_resetDemo(i),s_DemoSignalI(i),s_DemoSignalQ(i));
 			
 			s_signalsMX1((i+1)*g_bits-1 downto i*g_bits)<=s_DemoSignalI(i);
 			s_signalsMX1((i+1+g_Demodulator_modules)*g_bits-1 downto (i+g_Demodulator_modules)*g_bits)<=s_DemoSignalQ(i);
